@@ -5,7 +5,7 @@ namespace app\modules\order\widgets;
 use yii\base\Widget;
 use yii\helpers\Url;
 
-class HeaderDropDownWidget extends Widget
+class HeaderDropDownWidget extends TabsWidget
 {
     /** @var string */
     public $title;
@@ -40,7 +40,9 @@ class HeaderDropDownWidget extends Widget
         echo '<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">';
         foreach ($this->choices as $value => $title) {
             $href = Url::current([$this->column => $value]);
-            echo '<li class="active"><a href="' . $href . '">' . $title . '</a></li>';
+            echo '<li ' . $this->getActiveClass($value) . '">
+                    <a href="' . $href . '">' . $title . '</a>
+                  </li>';
         }
         echo '</ul>';
     }

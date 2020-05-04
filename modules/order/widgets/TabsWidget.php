@@ -2,7 +2,7 @@
 
 namespace app\modules\order\widgets;
 
-use Yii;
+use app\modules\order\helpers\UrlHelper;
 use yii\base\Widget;
 
 class TabsWidget extends Widget
@@ -14,10 +14,9 @@ class TabsWidget extends Widget
     public $rootTitle;
 
     /** @var array */
-    public $tabs;
+    public $choices;
 
-    /** @var int|null */
-    private $activeTabIndex = null;
+    protected $activeChoiceIndex = null;
 
     public function init()
     {
@@ -35,36 +34,32 @@ class TabsWidget extends Widget
                     <a href="/">' . $this->rootTitle . '</a>
                   </li>';
         }
-        foreach ($this->tabs as $index => $tab) {
-            $columnValue = $tab['value'];
-            $title = $tab['title'];
-            $href = '/?' . $this->column . '=' . $columnValue;
-            echo '<li ' . $this->getActiveClass($index) . '>
+        foreach ($this->choices as $value => $title) {
+            $href = '/?' . $this->column . '=' . $value;
+            echo '<li ' . $this->getActiveClass($value) . '>
                     <a href="' . $href . '">' . $title. '</a>
                   </li>';
         }
     }
 
     /**
-     * @param int|null $tabIndex
+     * @param $tabIndex
      * @return string
      */
-    private function getActiveClass(int $tabIndex = null): string
+    protected function getActiveClass($tabIndex = null): string
     {
-        if (is_null($tabIndex) && is_null($this->activeTabIndex)) {
+        if (is_null($tabIndex) && is_null($this->activeChoiceIndex)) {
             return 'class = "active"';
         }
-        return $tabIndex === $this->activeTabIndex ? 'class = "active"' : '';
+        return $tabIndex === $this->activeChoiceIndex ? 'class = "active"' : '';
     }
 
     private function setActiveTabIndex(): void
     {
-        $currentQueryParams = Yii::$app->request->queryParams;
-        foreach ($this->tabs as $index => $tab) {
-            if (isset($currentQueryParams[$this->column]) &&
-                (string)$currentQueryParams[$this->column] === (string)$tab['value']
-            ) {
-                $this->activeTabIndex = $index;
+        foreach ($this->choices as $value => $title) {
+            if (UrlHelper::isCurrentHasQueryParamWithValue($this->column, $value)) {
+                $this->activeChoiceIndex = $value;
+                break;
             }
         }
     }

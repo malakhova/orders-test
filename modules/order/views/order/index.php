@@ -47,13 +47,7 @@ $this->registerCss("
         <?= TabsWidget::widget([
                 'column' => Order::ATTR_STATUS,
                 'rootTitle' => 'All orders',
-                'tabs' => [
-                        ['value' => OrderStatus::PENDING, 'title' => 'Pending'],
-                        ['value' => OrderStatus::IN_PROGRESS, 'title' => 'In progress'],
-                        ['value' => OrderStatus::COMPLETED, 'title' => 'Completed'],
-                        ['value' => OrderStatus::CANCELED, 'title' => 'Canceled'],
-                        ['value' => OrderStatus::FAIL, 'title' => 'Error'],
-                ]
+                'choices' => OrderStatus::getAllLabels(),
         ]) ?>
         <li class="pull-right custom-search">
             <form class="form-inline" action="/" method="get">
