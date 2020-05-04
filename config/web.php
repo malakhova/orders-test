@@ -6,6 +6,7 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
+    'language' => 'ru',
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -44,6 +45,18 @@ $config = [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
+                ],
+            ],
+        ],
+        'i18n' => [
+            'translations' => [
+                'order*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '/app/modules/order/messages',
+                    'fileMap' => [
+                        'order'       => 'order.php',
+                        'order/status' => 'status.php',
+                    ],
                 ],
             ],
         ],

@@ -20,6 +20,9 @@ class Service extends ActiveRecord
     /** @var string */
     public const ATTR_NAME = 'name';
 
+    /**
+     * @inheritDoc
+     */
     public static function tableName()
     {
         return 'services';

@@ -57,14 +57,14 @@ class Order extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            self::ATTR_ID => 'ID',
-            self::ATTR_USER => 'User',
-            self::ATTR_LINK => 'Link',
-            self::ATTR_SERVICE_ID => 'Service',
-            self::ATTR_QUANTITY => 'Quantity',
-            self::ATTR_STATUS => 'Status',
-            self::ATTR_CREATED_AT => 'Created',
-            self::ATTR_MODE => 'Mode',
+            self::ATTR_ID => \Yii::t('order', 'ID'),
+            self::ATTR_USER => \Yii::t('order', 'User'),
+            self::ATTR_LINK => \Yii::t('order', 'Link'),
+            self::ATTR_SERVICE_ID => \Yii::t('order', 'Service'),
+            self::ATTR_QUANTITY => \Yii::t('order', 'Quantity'),
+            self::ATTR_STATUS => \Yii::t('order', 'Status'),
+            self::ATTR_CREATED_AT => \Yii::t('order', 'Created'),
+            self::ATTR_MODE => \Yii::t('order', 'Mode'),
         ];
     }
 }

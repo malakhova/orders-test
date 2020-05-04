@@ -25,8 +25,8 @@ class OrderMode
     public static function getAllLabels(): array
     {
         return [
-            self::MANUAL => 'Manual',
-            self::AUTO => 'Auto',
+            self::MANUAL => \Yii::t('order', 'Manual'),
+            self::AUTO => \Yii::t('order', 'Auto'),
         ];
     }
 }

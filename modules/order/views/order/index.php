@@ -69,7 +69,6 @@ $this->registerCss("
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'layout' => "{items}\n{pager}\t{summary}",
-        'summary' => $dataProvider->getTotalCount() >= $dataProvider->getPagination()->pageSize ? 'hui' : $dataProvider->getTotalCount(),
         'pager' => ['options' => ['class' => 'col-sm-8 pagination']],
         'tableOptions' => ['class' => 'table order-table'],
         'columns' => [
@@ -80,7 +79,7 @@ $this->registerCss("
             [
                 'attribute' => Order::ATTR_SERVICE_ID,
                 'header' => HeaderDropDownWidget::widget([
-                    'title' => 'Service',
+                    'title' => \Yii::t('order', 'Service'),
                     'column' => Order::ATTR_SERVICE_ID,
                     'choices' => OrderStatusFilterHelper::createDropDown(),
                 ]),
@@ -101,7 +100,7 @@ $this->registerCss("
             [
                 'attribute' => Order::ATTR_MODE,
                 'header' => HeaderDropDownWidget::widget([
-                        'title' => 'Mode',
+                        'title' => \Yii::t('order', 'Mode'),
                         'column' => Order::ATTR_MODE,
                         'choices' => OrderMode::getAllLabels(),
                 ]),
