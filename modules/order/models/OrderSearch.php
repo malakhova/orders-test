@@ -77,13 +77,14 @@ class OrderSearch extends Order
             ->leftJoin(
                 Service::tableName(),
                 Order::tableName() . '.' . Order::ATTR_SERVICE_ID . '=' . Service::tableName(). '.' . Service::ATTR_ID
-            );
+            )
+            ->orderBy([Order::ATTR_ID => SORT_DESC]);
 
         // add conditions that should always apply here
         $dataProvider = new ArrayDataProvider([
             'allModels' => $query->all(),
             'pagination' => [
-                'pageSize' => 10,
+                'pageSize' => 100,
             ],
         ]);
 

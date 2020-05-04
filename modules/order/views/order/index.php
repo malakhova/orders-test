@@ -2,16 +2,17 @@
 
 use app\modules\order\assets\OrderAsset;
 use app\modules\order\entities\Order;
+use app\modules\order\helpers\OrderStatusFilterHelper;
 use app\modules\order\models\OrderSearch;
 use app\modules\order\value_objects\OrderMode;
 use app\modules\order\value_objects\OrderStatus;
+use app\modules\order\widgets\HeaderDropDownWidget;
 use app\modules\order\widgets\TabsWidget;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\order\models\OrderSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-/* @var $allServicesNames string[] */
 
 OrderAsset::register($this);
 $this->registerCss("
@@ -73,7 +74,10 @@ $this->registerCss("
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'layout' => "{items}\n{pager}\t{summary}",
+        'summary' => $dataProvider->getTotalCount() >= $dataProvider->getPagination()->pageSize ? 'hui' : $dataProvider->getTotalCount(),
+        'pager' => ['options' => ['class' => 'col-sm-8 pagination']],
+        'tableOptions' => ['class' => 'table order-table'],
         'columns' => [
             Order::ATTR_ID,
             Order::ATTR_USER,
@@ -81,7 +85,11 @@ $this->registerCss("
             Order::ATTR_QUANTITY,
             [
                 'attribute' => Order::ATTR_SERVICE_ID,
-                'filter' => $allServicesNames,
+                'header' => HeaderDropDownWidget::widget([
+                    'title' => 'Service',
+                    'column' => Order::ATTR_SERVICE_ID,
+                    'choices' => OrderStatusFilterHelper::createDropDown(),
+                ]),
                 'content' => function ($item) {
                     return '<span class="label-id">' . $item[Order::ATTR_SERVICE_ID] . '</span>' . $item['service_name'];
                 },
@@ -94,11 +102,15 @@ $this->registerCss("
             ],
             [
                 'attribute' => Order::ATTR_CREATED_AT,
-                'format' => 'datetime',
+                'format' => ['date', 'php:Y-m-d H:i:s'],
             ],
             [
                 'attribute' => Order::ATTR_MODE,
-                'filter' => OrderMode::getAllLabels(),
+                'header' => HeaderDropDownWidget::widget([
+                        'title' => 'Mode',
+                        'column' => Order::ATTR_MODE,
+                        'choices' => OrderMode::getAllLabels(),
+                ]),
                 'content' => function ($item) {
                     return OrderMode::getLabelByValue($item[Order::ATTR_MODE]);
                 },

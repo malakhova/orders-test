@@ -15,8 +15,10 @@ class OrderAsset extends AssetBundle
     ];
 
     public $js = [
-        'js/jquery.min.css',
+        'js/jquery.min.js',
         'js/bootstrap.min.js',
+        'https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js',
+        'https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js'
     ];
 
     public $depends = [

@@ -4,7 +4,6 @@ namespace app\modules\order\controllers;
 
 use Yii;
 use app\modules\order\models\OrderSearch;
-use yii\db\Query;
 use yii\web\Controller;
 
 /**
@@ -24,7 +23,6 @@ class OrderController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'allServicesNames' => (new Query())->select('name')->from('services')->indexBy('id')->column(),
         ]);
     }
 
